@@ -1,4 +1,5 @@
 
+#3nc0d3d
 import usbrelaycontroller as usbc
 import shlex, subprocess
 from subprocess import call
