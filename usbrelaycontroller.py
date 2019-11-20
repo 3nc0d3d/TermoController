@@ -7,7 +7,7 @@ For python 2.7, 3
 """
 import sys, os, time
 import ctypes
-
+dummy=True
 print("Running on Python v." + str(sys.version))
 print("%d-bit mode" % ({4:32, 8:64}[ctypes.sizeof(ctypes.c_void_p)]) )
 
@@ -45,6 +45,8 @@ class L: pass   # Global object for the DLL
 setattr(L, "dll", None)
 
 def loadLib():
+  if (dummy):
+      return
   # Load the C DLL ...
   if not L.dll :
     print("Loading DLL: %s" % ('/'.join([libpath, libfile])))
@@ -195,7 +197,11 @@ def testR2():
   print("*** test R2 PASS ***")
 
 
+
 def init():
+  if (dummy):
+    return
+
   print("Init..")
   loadLib()
   getLibFunctions()
@@ -211,11 +217,15 @@ def init():
 
 
 def close():
+  if (dummy):
+    return
   closeDev()
   unloadLib()
 
 
 def openRelay():
+  if (dummy):
+    return
   # Play on/off
   mask=0
   ret = L.usb_relay_device_open_one_relay_channel(hdev,1)
@@ -223,6 +233,9 @@ def openRelay():
   print("Relay open")
 
 def closeRelay():
+  if (dummy):
+    return
+
   ret = L.usb_relay_device_close_all_relay_channel(hdev)
   if ret != 0:
      fail("Failed OFF all!")

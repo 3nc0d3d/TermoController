@@ -9,6 +9,7 @@ import threading
 import curses
 import logging
 
+dummy=True
 tempList=[]
 usbc.init()
 g_temp=0
@@ -30,9 +31,16 @@ def execute(command):
   (out, err) = proc.communicate()
   return out
 
-
+temp_dummy=15.0
+def getTemperDummy():
+  global temp_dummy
+  temp_dummy=temp_dummy+0.01
+  temp=temp_dummy
+  return temp    
 
 def getTemper():
+  if (dummy):
+    return getTemperDummy()
   rawTemp=execute(["temper-poll"])
   temp = float(str(rawTemp,'utf-8')[27:31])
   return temp

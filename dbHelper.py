@@ -1,3 +1,4 @@
+#Classe per effettua connessioni sl db sql3 
 import sqlite3
 class dbHelper:
     def open(self,dbname):        
